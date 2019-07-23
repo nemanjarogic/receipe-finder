@@ -1,0 +1,15 @@
+{
+  "name": "receipe-finder",
+  "version": "1.0.0",
+  "description": "Search over than a million receipes of any ingredients.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nemanjarogic",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.37.0"
+  },
+  "dependencies": {}
+}
