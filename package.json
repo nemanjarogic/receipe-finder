@@ -4,12 +4,16 @@
   "description": "Search over than a million receipes of any ingredients.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
   },
   "author": "nemanjarogic",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^4.37.0"
+    "webpack": "^4.37.0",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {}
 }
