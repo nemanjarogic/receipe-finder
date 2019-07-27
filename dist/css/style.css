@@ -19,10 +19,12 @@
   *,
   *::before,
   *::after {
+    -webkit-box-sizing: inherit;
     box-sizing: inherit;
   }
   
   html {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-size: 62.5%;
   }
@@ -38,6 +40,7 @@
     font-weight: 400;
     line-height: 1.6;
     color: #655A56;
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#F0F2F3), to(#E74837));
     background-image: linear-gradient(to right bottom, #F0F2F3, #E74837);
     background-size: cover;
     background-repeat: no-repeat;
@@ -50,6 +53,7 @@
     background-color: #fff;
     border-radius: 20px;
     overflow: hidden;
+    -webkit-box-shadow: 0 2rem 6rem 0.5rem rgba(101, 90, 86, 0.2);
     box-shadow: 0 2rem 6rem 0.5rem rgba(101, 90, 86, 0.2);
     display: grid;
     grid-template-rows: 10rem 2rem minmax(100rem, auto);
@@ -67,9 +71,9 @@
   
   
   /* -----------------------------------------------------
-     REUSABLE COMPONENTS
-     (Components that can be used all over the site)
-     ----------------------------------------------------- */
+       REUSABLE COMPONENTS
+       (Components that can be used all over the site)
+       ----------------------------------------------------- */
   
   
   /* ------- HEADINGS ------- */
@@ -90,19 +94,26 @@
   .btn-small,
   .btn-small:link,
   .btn-small:visited {
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#F0F2F3), to(#E74837));
     background-image: linear-gradient(to right bottom, #F0F2F3, #E74837);
     border-radius: 10rem;
     border: none;
     text-transform: uppercase;
     color: #fff;
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-transition: all .2s;
     transition: all .2s;
   }
   
   .btn:hover,
   .btn-small:hover {
+    -webkit-transform: scale(1.05);
     transform: scale(1.05);
   }
   
@@ -151,8 +162,13 @@
     padding: .8rem 1.2rem;
     border-radius: 10rem;
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-transition: all .2s;
     transition: all .2s;
   }
   
@@ -188,6 +204,7 @@
     height: 100%;
     width: 100%;
     fill: #D4766B;
+    -webkit-transition: all .3s;
     transition: all .3s;
   }
   
@@ -197,11 +214,13 @@
   
   .btn-tiny:hover svg {
     fill: #E74837;
+    -webkit-transform: translateY(-1px);
     transform: translateY(-1px);
   }
   
   .btn-tiny:active svg {
     fill: #E74837;
+    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
   
@@ -211,15 +230,21 @@
   
   
   /* -----------------------------------------------------
-     HEADER
-     (Logo, search bar and favourites meals)
-     ----------------------------------------------------- */
+       HEADER
+       (Logo, search bar and favourites meals)
+       ----------------------------------------------------- */
   
   .header {
     grid-area: head;
     background-color: #FFECEC;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
   }
   
@@ -232,14 +257,21 @@
   .search {
     background-color: #fff;
     border-radius: 10rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     padding-left: 3rem;
+    -webkit-transition: all .3s;
     transition: all .3s;
   }
   
   .search:focus-within {
+    -webkit-transform: translateY(-2px);
     transform: translateY(-2px);
+    -webkit-box-shadow: 0 0.7rem 3rem rgba(101, 90, 86, 0.08);
     box-shadow: 0 0.7rem 3rem rgba(101, 90, 86, 0.08);
   }
   
@@ -256,12 +288,25 @@
     outline: none;
   }
   
+  .search__field::-webkit-input-placeholder {
+    color: #DAD0CC;
+  }
+  
+  .search__field:-ms-input-placeholder {
+    color: #DAD0CC;
+  }
+  
+  .search__field::-ms-input-placeholder {
+    color: #DAD0CC;
+  }
+  
   .search__field::placeholder {
     color: #DAD0CC;
   }
   
   .likes {
     position: relative;
+    -ms-flex-item-align: stretch;
     align-self: stretch;
     padding: 0 !important;
   }
@@ -269,9 +314,14 @@
   .likes__field {
     cursor: pointer;
     padding: 0 4rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     height: 100%;
+    -webkit-transition: all .3s;
     transition: all .3s;
   }
   
@@ -299,17 +349,19 @@
     padding: 2rem 0;
     width: 34rem;
     background-color: #fff;
+    -webkit-box-shadow: 0 0.8rem 5rem 2rem rgba(101, 90, 86, 0.1);
     box-shadow: 0 0.8rem 5rem 2rem rgba(101, 90, 86, 0.1);
     visibility: hidden;
     opacity: 0;
+    -webkit-transition: all .5s .2s;
     transition: all .5s .2s;
   }
   
   
   /* -----------------------------------------------------
-     SEARCH RESULTS AND FAVOURITE MEALS
-     (Common part for searched meals and favourite meals) 
-     ----------------------------------------------------- */
+       SEARCH RESULTS AND FAVOURITE MEALS
+       (Common part for searched meals and favourite meals) 
+       ----------------------------------------------------- */
   
   .results,
   .likes {
@@ -325,9 +377,14 @@
   .results__link:visited,
   .likes__link:link,
   .likes__link:visited {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     padding: 1.5rem 3rem;
+    -webkit-transition: all .3s;
     transition: all .3s;
     border-right: 1px solid #fff;
     text-decoration: none;
@@ -336,6 +393,7 @@
   .results__link:hover,
   .likes__link:hover {
     background-color: #FFECEC;
+    -webkit-transform: translateY(-2px);
     transform: translateY(-2px);
   }
   
@@ -346,12 +404,15 @@
   
   .results__fig,
   .likes__fig {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 5.5rem;
     flex: 0 0 5.5rem;
     border-radius: 50%;
     overflow: hidden;
     height: 5.5rem;
     margin-right: 2rem;
     position: relative;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
   
@@ -364,6 +425,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#F0F2F3), to(#E74837));
     background-image: linear-gradient(to right bottom, #F0F2F3, #E74837);
     opacity: .4;
   }
@@ -373,7 +435,9 @@
     display: block;
     width: 100%;
     height: 100%;
+    -o-object-fit: cover;
     object-fit: cover;
+    -webkit-transition: all .3s;
     transition: all .3s;
   }
   
@@ -410,6 +474,9 @@
   .results__btn--prev,
   .likes__btn--prev {
     float: left;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
   }
   
@@ -420,24 +487,31 @@
   
   
   /* -----------------------------------------------------
-     SEPARATOR
-     (Separator between header and main content)
-     ----------------------------------------------------- */
+       SEPARATOR
+       (Separator between header and main content)
+       ----------------------------------------------------- */
   
   .separator {
     grid-area: separator;
+    background-image: -webkit-gradient(linear, left top, right top, from(#F0F2F3), to(#E74837));
     background-image: linear-gradient(to right, #F0F2F3, #E74837);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     height: 4px;
   }
   
   
   /* -----------------------------------------------------
-     RECEIPE
-     (Main section with meal image, ingredients and information how to cook)
-     ----------------------------------------------------- */
+       RECEIPE
+       (Main section with meal image, ingredients and information how to cook)
+       ----------------------------------------------------- */
   
   .recipe {
     background-color: #F9F5F3;
@@ -447,7 +521,9 @@
   .recipe__fig {
     height: 30rem;
     position: relative;
+    -webkit-transform: scale(1.04) translateY(-1px);
     transform: scale(1.04) translateY(-1px);
+    -webkit-transform-origin: top;
     transform-origin: top;
   }
   
@@ -459,6 +535,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#F0F2F3), to(#E74837));
     background-image: linear-gradient(to right bottom, #F0F2F3, #E74837);
     opacity: .6;
   }
@@ -467,6 +544,7 @@
     width: 100%;
     display: block;
     height: 100%;
+    -o-object-fit: cover;
     object-fit: cover;
   }
   
@@ -474,6 +552,7 @@
     position: absolute;
     bottom: 0;
     left: 50%;
+    -webkit-transform: translate(-50%, 20%) skewY(-6deg);
     transform: translate(-50%, 20%) skewY(-6deg);
     color: #fff;
     font-weight: 700;
@@ -488,11 +567,16 @@
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
     padding: 1.3rem 2rem;
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#F0F2F3), to(#37D6E7));
     background-image: linear-gradient(to right bottom, #F0F2F3, #37D6E7);
   }
   
   .recipe__details {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     padding: 8rem 3rem 3rem 3rem;
   }
@@ -500,7 +584,11 @@
   .recipe__info {
     font-size: 1.5rem;
     text-transform: uppercase;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
   }
   
@@ -521,21 +609,27 @@
   }
   
   .recipe__info-buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-left: 1.5rem;
     visibility: hidden;
     opacity: 0;
+    -webkit-transform: translateY(5px);
     transform: translateY(5px);
+    -webkit-transition: all .4s;
     transition: all .4s;
   }
   
   .recipe:hover .recipe__info-buttons {
     visibility: visible;
     opacity: 1;
+    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
   
   .recipe__love {
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#F0F2F3), to(#E74837));
     background-image: linear-gradient(to right bottom, #F0F2F3, #E74837);
     border-radius: 50%;
     border: none;
@@ -543,13 +637,21 @@
     height: 4.5rem;
     width: 4.5rem;
     margin-left: auto;
+    -webkit-transition: all .2s;
     transition: all .2s;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
   }
   
   .recipe__love:hover {
+    -webkit-transform: scale(1.07);
     transform: scale(1.07);
   }
   
@@ -568,8 +670,15 @@
     font-size: 1.5rem;
     line-height: 1.4;
     background-color: #F2EFEE;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
   }
   
@@ -583,6 +692,8 @@
   }
   
   .recipe__item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
   }
   
@@ -594,20 +705,31 @@
     border-radius: 50%;
     padding: 2px;
     margin-right: 1rem;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     margin-top: .1rem;
   }
   
   .recipe__count {
     margin-right: .5rem;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
     flex: 0 0 auto;
   }
   
   .recipe__directions {
     padding: 4rem;
     padding-bottom: 5rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
   }
   
@@ -625,19 +747,20 @@
   
   
   /* -----------------------------------------------------
-     SHOPPING LIST
-     ----------------------------------------------------- */
+       SHOPPING LIST
+       ----------------------------------------------------- */
   
   .shopping {
     padding: 3rem 4rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
   }
   
-  .shopping__icon {
-    height: 30px;
-  }
-
   .shopping__list {
     list-style: none;
     max-height: 77rem;
@@ -645,7 +768,11 @@
   }
   
   .shopping__item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: flex-start;
     padding: 1.3rem 0;
     border-bottom: 1px solid #F2EFEE;
@@ -653,13 +780,19 @@
   }
   
   .shopping__count {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 7.5rem;
     flex: 0 0 7.5rem;
     padding: .4rem .5rem;
     border: 1px solid #F2EFEE;
     border-radius: 3px;
     margin-right: 2rem;
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
   }
   
@@ -683,6 +816,8 @@
   }
   
   .shopping__description {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     font-size: 1.3rem;
     margin-top: .4rem;
@@ -693,11 +828,13 @@
     margin-top: .5rem;
     position: absolute;
     right: 0;
+    background-image: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(40%, #fff), to(#fff));
     background-image: linear-gradient(to right, transparent 0%, #fff 40%, #fff 100%);
     width: 3.75rem;
     padding-left: 2rem;
     visibility: hidden;
     opacity: 0;
+    -webkit-transition: all .5s;
     transition: all .5s;
   }
   
@@ -708,8 +845,8 @@
   
   
   /* -----------------------------------------------------
-     COPYRIGHT
-     ----------------------------------------------------- */
+       COPYRIGHT
+       ----------------------------------------------------- */
   
   .copyright {
     color: #968B87;
@@ -731,15 +868,30 @@
     height: 5.5rem;
     width: 5.5rem;
     fill: #F59A83;
+    -webkit-transform-origin: 44% 50%;
     transform-origin: 44% 50%;
+    -webkit-animation: rotate 1.5s infinite linear;
     animation: rotate 1.5s infinite linear;
+  }
+  
+  @-webkit-keyframes rotate {
+    0% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
   }
   
   @keyframes rotate {
     0% {
+      -webkit-transform: rotate(0);
       transform: rotate(0);
     }
     100% {
+      -webkit-transform: rotate(360deg);
       transform: rotate(360deg);
     }
   }
