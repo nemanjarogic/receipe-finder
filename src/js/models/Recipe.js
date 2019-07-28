@@ -7,7 +7,7 @@ export default class Recipe {
     }
 
     async getRecipe() {
-        const res = await axios(`https://www.food2fork.com/api/get?key=xx${key}&rId=${this.id}`);
+        const res = await axios(`https://www.food2fork.com/api/get?key=${key}&rId=${this.id}`);
 
         this.title = res.data.recipe.title;
         this.author = res.data.recipe.publisher;
@@ -26,5 +26,72 @@ export default class Recipe {
 
     calculateServings() {
         this.servings = 4;
+    }
+
+    parseIngredients() {
+        const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
+        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'cup', 'pound'];
+
+        const newIngredients = this.ingredients.map(el => {
+
+            // Uniform units
+            let ingredient = el.toLowerCase();
+            unitsLong.forEach((unit, i) => {
+                ingredient = ingredient.replace(unit, unitsShort[i]);
+            });
+
+            // Remove text between parentheses (details that we actually don't need)
+            // For example: 2 (10 inch) tortilla
+            ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
+
+            // Parse ingredients into count, unit and ingredient
+            const arrIngredient = ingredient.split(' ');
+            const unitIndex = arrIngredient.findIndex(el2 => unitsShort.includes(el2));
+
+            let  objIngredient;
+
+            if(unitIndex > -1) {
+                // There is unit
+                // For example: 2 1/2 cup mozzarella or 4 cups or 1-1/2 cup (which really means 1.5)
+                // arrCount can be [2, 1/2] or [4]
+
+                const arrCount = arrIngredient.slice(0, unitIndex);
+                
+                let count;
+                if(arrCount.length === 1) {
+                    count = eval(arrIngredient[0].replace('-', '+'));
+                } else {
+                    // eval('4+1/2') -> 4.5
+                    count = eval(arrIngredient.slice(0, unitIndex).join('+'));
+                }
+
+                objIngredient = {
+                    count,
+                    unit: arrIngredient[unitIndex],
+                    ingredient: arrIngredient.slice(unitIndex + 1).join(' ')
+                };
+
+            } else if (parseInt(arrIngredient[0], 10)) {
+                // There is no unit
+                // For  example: 16 slices pepperoni
+                objIngredient = {
+                    count: parseInt(arrIngredient[0], 10),
+                    unit: '',
+                    ingredient: arrIngredient.slice(1).join(' ') 
+                };
+            } else if(unitIndex ==- -1) {
+                // There is no unit and no number in 1st position
+                // For example: Kiwi Fruit
+                objIngredient = {
+                    count: 1,
+                    unit: '',
+                    ingredient
+                };
+            }
+
+            return objIngredient;
+        });
+
+        this.ingredients = newIngredients;
     }
 }

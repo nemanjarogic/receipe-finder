@@ -36,7 +36,7 @@ const controlSearch = async () => {
             clearLoader();
             searchView.renderResults(state.search.result);
         } catch(error) {
-            alert('Failed to get recipes from search query using Food2Fork. See console log for more details.');
+            alert('Failed to get recipes from search query. See console log for more details. Be aware that number of daily allowed API request to Food2Fork can be reached');
             console.log(error);
         }
     }
@@ -69,17 +69,18 @@ const controlRecipe = async () => {
         // Prepare UI for changes
 
         state.recipe = new Recipe(id);
-
+        
         try {
-            // Get recipe data
+            // Get recipe data and parse ingredients
             await state.recipe.getRecipe();
+            state.recipe.parseIngredients();
 
             state.recipe.calculatePreparingTime();
             state.recipe.calculateServings();
 
             console.log(state.recipe);
         } catch(error) {
-            alert('Failed to get receipe details from Food2Fork. See console log for more details.');
+            alert('Failed to get receipe details from Food2Fork. See console log for more details. Be aware that number of daily allowed API request to Food2Fork can be reached');
             console.log(error);
         }
     }
