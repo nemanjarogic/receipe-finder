@@ -1,4 +1,4 @@
-import { elements } from './base';
+import { elements, elementStrings } from './base';
 
 
 export const getInput = () => elements.searchInput.value;
@@ -9,29 +9,19 @@ export const clearInput = () => {
 
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
+    elements.searchResPages.innerHTML = '';
 }
 
-export const renderResults = recipes => {
-    recipes.forEach(renderRecipe);
+export const renderResults = (recipes, page = 1, resultsPerPage = 10) => {
+    const startIndex = (page - 1) * resultsPerPage;
+    const endIndex = startIndex + resultsPerPage;
+
+    // Render recipes of current page
+    recipes.slice(startIndex, endIndex).forEach(renderRecipe);
+
+    // Render page pagination
+    renderPageButtons(page,  recipes.length, resultsPerPage);
 }
-
-const limitRecipeTitle = (title, limit = 17) => {
-    const newTitle = [];
-
-    if(title.length > limit) {
-        title.split(' ').reduce((acc, curr) => {
-            if(acc + curr.length <= limit) {
-                newTitle.push(curr)
-            }
-
-            return acc + curr.length;
-        }, 0);
-
-        return `${newTitle.join(' ')} ...`;
-    }
-
-    return title;
-} 
 
 const renderRecipe = recipe => {
     const markup = `
@@ -50,3 +40,48 @@ const renderRecipe = recipe => {
 
     elements.searchResList.insertAdjacentHTML('beforeend', markup);
 }
+
+const limitRecipeTitle = (title, limit = 17) => {
+    const newTitle = [];
+
+    if(title.length > limit) {
+        title.split(' ').reduce((acc, curr) => {
+            if(acc + curr.length <= limit) {
+                newTitle.push(curr)
+            }
+
+            return acc + curr.length;
+        }, 0);
+
+        return `${newTitle.join(' ')} ...`;
+    }
+
+    return title;
+}
+
+const renderPageButtons = (page, totalResultsNumber, resultsPerPage) => {
+    const totalPages = Math.ceil(totalResultsNumber / resultsPerPage);
+    let pageButton;
+
+    if(page === 1 && totalPages > 1) {
+        pageButton = createPageButton(page, 'next');
+    } else if(page < totalPages) {
+        pageButton = `
+            ${createPageButton(page, 'prev')}
+            ${createPageButton(page, 'next')}
+        `;
+    } else if(page === totalPages && totalPages > 1) {
+        pageButton = createPageButton(page, 'prev');
+    }
+
+    elements.searchResPages.insertAdjacentHTML('afterbegin', pageButton);
+}
+
+const createPageButton = (page, type) => `
+    <button class="${elementStrings.btnInline} results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+        <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
+        <svg class="search__icon">
+            <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
+        </svg>
+    </button>
+`;
