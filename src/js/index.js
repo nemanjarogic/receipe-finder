@@ -28,12 +28,17 @@ const controlSearch = async () => {
         searchView.clearInput();
         renderLoader(elements.searchRes);
 
-        // Search for recepies
-        await state.search.getResults();
+        try {
+            // Search for recepies
+            await state.search.getResults();
 
-        // Render fetched results on UI
-        clearLoader();
-        searchView.renderResults(state.search.result);
+            // Render fetched results on UI
+            clearLoader();
+            searchView.renderResults(state.search.result);
+        } catch(error) {
+            alert('Failed to get recipes from search query using Food2Fork. See console log for more details.');
+            console.log(error);
+        }
     }
 }
 
@@ -56,3 +61,28 @@ elements.searchResPages.addEventListener('click', e => {
 /**
  * RECIPE CONTROLLER
  */
+
+const controlRecipe = async () => {
+    const id = window.location.hash.replace('#', '');
+    
+    if(id) {
+        // Prepare UI for changes
+
+        state.recipe = new Recipe(id);
+
+        try {
+            // Get recipe data
+            await state.recipe.getRecipe();
+
+            state.recipe.calculatePreparingTime();
+            state.recipe.calculateServings();
+
+            console.log(state.recipe);
+        } catch(error) {
+            alert('Failed to get receipe details from Food2Fork. See console log for more details.');
+            console.log(error);
+        }
+    }
+}
+
+ ['hashchange', 'load'].forEach(event => window.addEventListener(event,controlRecipe));
