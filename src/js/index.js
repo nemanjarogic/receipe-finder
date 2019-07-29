@@ -1,6 +1,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import { elements, elementStrings, renderLoader, clearLoader } from './views/base';
 
 /** Global state of the app
@@ -67,6 +68,8 @@ const controlRecipe = async () => {
     
     if(id) {
         // Prepare UI for changes
+        recipeView.clearRecipe();
+        renderLoader(elements.recipe);
 
         state.recipe = new Recipe(id);
         
@@ -78,7 +81,8 @@ const controlRecipe = async () => {
             state.recipe.calculatePreparingTime();
             state.recipe.calculateServings();
 
-            console.log(state.recipe);
+            clearLoader();
+            recipeView.renderRecipe(state.recipe);
         } catch(error) {
             alert('Failed to get receipe details from Food2Fork. See console log for more details. Be aware that number of daily allowed API request to Food2Fork can be reached');
             console.log(error);

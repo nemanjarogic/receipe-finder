@@ -31,6 +31,7 @@ export default class Recipe {
     parseIngredients() {
         const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
         const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'cup', 'pound'];
+        const units = [...unitsShort, 'kg', 'g'];
 
         const newIngredients = this.ingredients.map(el => {
 
@@ -46,7 +47,7 @@ export default class Recipe {
 
             // Parse ingredients into count, unit and ingredient
             const arrIngredient = ingredient.split(' ');
-            const unitIndex = arrIngredient.findIndex(el2 => unitsShort.includes(el2));
+            const unitIndex = arrIngredient.findIndex(el2 => units.includes(el2));
 
             let  objIngredient;
 
@@ -79,7 +80,7 @@ export default class Recipe {
                     unit: '',
                     ingredient: arrIngredient.slice(1).join(' ') 
                 };
-            } else if(unitIndex ==- -1) {
+            } else if(unitIndex === -1) {
                 // There is no unit and no number in 1st position
                 // For example: Kiwi Fruit
                 objIngredient = {
