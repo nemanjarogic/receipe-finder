@@ -1,5 +1,6 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
+import ShoppingList from './models/ShoppingList';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import { elements, elementStrings, renderLoader, clearLoader } from './views/base';
@@ -108,5 +109,4 @@ const controlRecipe = async () => {
         state.recipe.updateServings('inc');
         recipeView.updateServingsIngredients(state.recipe);
     }
-
  });
