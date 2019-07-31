@@ -29,7 +29,25 @@ export const highlightSelected = id => {
         el.classList.remove('results__link--active');
     });
 
-    document.querySelector(`a[href*='${id}']`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href*='${id}']`).classList.add('results__link--active');
+}
+
+export const limitRecipeTitle = (title, limit = 17) => {
+    const newTitle = [];
+
+    if(title.length > limit) {
+        title.split(' ').reduce((acc, curr) => {
+            if(acc + curr.length <= limit) {
+                newTitle.push(curr)
+            }
+
+            return acc + curr.length;
+        }, 0);
+
+        return `${newTitle.join(' ')} ...`;
+    }
+
+    return title;
 }
 
 const renderRecipe = recipe => {
@@ -48,24 +66,6 @@ const renderRecipe = recipe => {
     `;
 
     elements.searchResList.insertAdjacentHTML('beforeend', markup);
-}
-
-const limitRecipeTitle = (title, limit = 17) => {
-    const newTitle = [];
-
-    if(title.length > limit) {
-        title.split(' ').reduce((acc, curr) => {
-            if(acc + curr.length <= limit) {
-                newTitle.push(curr)
-            }
-
-            return acc + curr.length;
-        }, 0);
-
-        return `${newTitle.join(' ')} ...`;
-    }
-
-    return title;
 }
 
 const renderPageButtons = (page, totalResultsNumber, resultsPerPage) => {

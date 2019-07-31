@@ -5,6 +5,7 @@ import LikedRecipes from './models/LikedRecipes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as shoppingListView from './views/shoppingListView';
+import * as likedRecipesView from './views/likedRecipesView';
 import { elements, elementStrings, renderLoader, clearLoader } from './views/base';
 
 
@@ -73,8 +74,9 @@ const controlRecipe = async () => {
         recipeView.clearRecipe();
         renderLoader(elements.recipe);
 
-        if(state.search) 
+        if(state.search) {
             searchView.highlightSelected(id);
+        }
 
         state.recipe = new Recipe(id);
         
@@ -87,7 +89,7 @@ const controlRecipe = async () => {
             state.recipe.calculateServings();
 
             clearLoader();
-            recipeView.renderRecipe(state.recipe);
+            recipeView.renderRecipe(state.recipe, state.likedRecipes.isRecipeLiked(id));
         } catch(error) {
             alert('Failed to get receipe details from Food2Fork. See console log for more details. Be aware that number of daily allowed API request to Food2Fork can be reached');
             console.log(error);
@@ -126,6 +128,10 @@ elements.shopping.addEventListener('click', e => {
     }
 });
 
+// FOR TESTING:
+state.likedRecipes = new LikedRecipes();
+likedRecipesView.toggleLikeMenu(state.likedRecipes.getNumberOfLikedRecipes());
+
 /**-------------------------------------------------------------------
  * LIKED RECIPE CONTROLLER
  -------------------------------------------------------------------*/
@@ -146,11 +152,16 @@ elements.shopping.addEventListener('click', e => {
             state.recipe.img,
         );
 
-        console.log(state.likedRecipes);
+        likedRecipesView.toggleLikeButton(true);
+        likedRecipesView.renderLike(newLike);
     } else {
         state.likedRecipes.deleteRecipe(recipeID);
-        console.log(state.likedRecipes);
+
+        likedRecipesView.toggleLikeButton(false);
+        likedRecipesView.deleteLike(recipeID);
     }
+
+    likedRecipesView.toggleLikeMenu(state.likedRecipes.getNumberOfLikedRecipes());
  }
 
 //-------------------------------------------------------------------
