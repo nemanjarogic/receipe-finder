@@ -30,7 +30,7 @@ export default class Recipe {
 
     parseIngredients() {
         const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
-        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'cup', 'pound'];
+        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
         const units = [...unitsShort, 'kg', 'g'];
 
         const newIngredients = this.ingredients.map(el => {
@@ -62,8 +62,13 @@ export default class Recipe {
                 if(arrCount.length === 1) {
                     count = eval(arrIngredient[0].replace('-', '+'));
                 } else {
-                    // eval('4+1/2') -> 4.5
-                    count = eval(arrIngredient.slice(0, unitIndex).join('+'));
+                    // ('4+1/2') -> 4.5
+                    // We can have next ingredient (skip string at the beggining): "scant 1 cup of unbleached all-purpose flour"
+                    const countItems = arrIngredient.slice(0, unitIndex).map(countItem => {
+                        const value = parseFloat(countItem);
+                        return isNaN(value) ? 0 : value;
+                    });
+                    count = countItems.reduce((a, b) => a + b, 0);
                 }
 
                 objIngredient = {
