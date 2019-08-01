@@ -128,9 +128,6 @@ elements.shopping.addEventListener('click', e => {
     }
 });
 
-// FOR TESTING:
-state.likedRecipes = new LikedRecipes();
-likedRecipesView.toggleLikeMenu(state.likedRecipes.getNumberOfLikedRecipes());
 
 /**-------------------------------------------------------------------
  * LIKED RECIPE CONTROLLER
@@ -163,6 +160,19 @@ likedRecipesView.toggleLikeMenu(state.likedRecipes.getNumberOfLikedRecipes());
 
     likedRecipesView.toggleLikeMenu(state.likedRecipes.getNumberOfLikedRecipes());
  }
+
+//-------------------------------------------------------------------
+// Restore liked recipes on page load
+// -------------------------------------------------------------------
+
+window.addEventListener('load', () => {
+    state.likedRecipes = new LikedRecipes();
+    state.likedRecipes.readDataFromStorage();
+
+    likedRecipesView.toggleLikeMenu(state.likedRecipes.getNumberOfLikedRecipes());
+
+    state.likedRecipes.likedRecipes.forEach(like => likedRecipesView.renderLike(like));
+});
 
 //-------------------------------------------------------------------
 // Handling recipe button clicks

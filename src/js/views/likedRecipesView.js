@@ -29,7 +29,7 @@ export const renderLike = like => {
 };
 
 export const deleteLike = id => {
-    const element = document.querySelector(`.likes__link[href*='${id}']`).parent;
+    const element = document.querySelector(`.likes__link[href*='${id}']`).parentElement;
     if(element) {
         element.parentElement.removeChild(element);
     }
