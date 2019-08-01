@@ -113,7 +113,6 @@ const controlShoppingList = () => {
         const item = state.shoppingList.addItem(el.count, el.unit, el.ingredient);
         shoppingListView.renderItem(item);
     });
-
 }
 
 elements.shopping.addEventListener('click', e => {
@@ -166,12 +165,20 @@ elements.shopping.addEventListener('click', e => {
 // -------------------------------------------------------------------
 
 window.addEventListener('load', () => {
+    // Load liked recipes from storage
     state.likedRecipes = new LikedRecipes();
     state.likedRecipes.readDataFromStorage();
 
     likedRecipesView.toggleLikeMenu(state.likedRecipes.getNumberOfLikedRecipes());
-
     state.likedRecipes.likedRecipes.forEach(like => likedRecipesView.renderLike(like));
+
+    // Load shopping list from storage
+    state.shoppingList = new ShoppingList();
+    state.shoppingList.readDataFromStorage();
+
+    state.shoppingList.items.forEach(el => {
+        shoppingListView.renderItem(el);
+    });
 });
 
 //-------------------------------------------------------------------

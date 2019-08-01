@@ -14,6 +14,7 @@ export default class ShoppingList {
         }
 
         this.items.push(item);
+        this.persistData();
 
         return item;
     }
@@ -21,9 +22,22 @@ export default class ShoppingList {
     deleteItem(id) {
         const index = this.items.findIndex(el => el.id === id);
         this.items.splice(index, 1);
+        this.persistData();
     }
 
     updateCount(id, newCount) {
         this.items.find(el => el.id === id).count = newCount;
+        this.persistData();
+    }
+
+    persistData() {
+        localStorage.setItem('shoppingList', JSON.stringify(this.items));
+    }
+
+    readDataFromStorage() {
+        const storage = JSON.parse(localStorage.getItem('shoppingList'));
+        if(storage) {
+            this.items = storage;
+        }
     }
 }
