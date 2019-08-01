@@ -107,15 +107,20 @@ const createIngredient = ingredient => `
 const formatCount = count => {
     if (count) {
         // Example: convert 2.5 --> 5/2 --> 2 1/2
-        const [int, dec] = count.toString().split('.').map(el => parseInt(el, 10));
+
+        // Math.round only return integers, and we need to keep two decimals so we need workaround
+        const roundedCount = Math.round(count * 10000) / 10000;
+        const [int, dec] = roundedCount.toString().split('.').map(el => parseInt(el, 10));
         
-        if(!dec) return count;
+        if(!dec) {
+            return roundedCount;
+        }
 
         if(int === 0) {
-            const fr = new Fraction(count);
+            const fr = new Fraction(roundedCount);
             return `${fr.numerator}/${fr.denominator}`;
         } else {
-            const fr = new Fraction(count - int);
+            const fr = new Fraction(roundedCount - int);
             return `${int} ${fr.numerator}/${fr.denominator}`;
         }
     }
