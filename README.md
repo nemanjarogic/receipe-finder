@@ -17,7 +17,7 @@ Search for over than a million recipes of any ingredients fetching data from [Fo
 __Make sure that Node.js and NPM are installed__
 
 1) Install the dependencies using `npm install` or `npm i`
-2) Register an account on the [Food2fork API](https://food2fork.com/about/api) and put your API key in config.js
+2) Register an account on the [Food2fork](https://food2fork.com/about/api) and put your API key in config.js
 3) For development purposes run `npm run start`
 4) Prepare for production using `npm run build`
 
